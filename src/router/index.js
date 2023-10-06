@@ -1,22 +1,83 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import MainView from '@/views/MainView'
+import AuthView from '@/views/AuthView'
+import Login from '@/pages/Auth/Login'
+import AdminDashboard from "@/pages/Dashboard/AdminDashboard"
+import AdminList from "../pages/Admin/AdminList"
+import SellerList from "../pages/Seller/SellerList"
+import BuyerList from "../pages/Buyer/BuyerList"
+import Merchandise from "../pages/Merchandise/MerchandiseList"
+import AdminAdd from "../pages/Admin/AdminAdd"
+import AdminEdit from "../pages/Admin/AdminEdit"
+import Auth from "../api/auth"
+
 
 Vue.use(VueRouter)
 
 const routes = [
+
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Admin Auth",
+    component: AuthView,
+    redirect: "/auth/login",
+    children: [
+      {
+        path: "/auth/login",
+        name: "Admin Login",
+        component: Login,
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/main',
+    name: 'Main',
+    component: MainView,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: "/dashboard",
+        name: "AdminDashboard",
+        component: AdminDashboard,
+        
+      },
+      {
+        path : "/admins",
+        name : "Admin Lists",
+        component :AdminList,
+        
+      },
+      {
+        path : "/create-admin",
+        name : "Admin Add",
+        component : AdminAdd,
+        
+      },
+      {
+        path : "/admin/:id",
+        name : "Admin Edit",
+        component : AdminEdit,
+      },
+      {
+        path : "/sellers",
+        name : "Seller Lists",
+        component : SellerList,
+
+      },
+      {
+        path : "/buyers",
+        name : "Buyers Lists",
+        component : BuyerList,
+
+      },
+      {
+        path : "/merchandises",
+        name : "Merchandise Lists",
+        component : Merchandise,
+        
+      }
+    ]
   }
 ]
 
@@ -24,6 +85,26 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
+
+const verifyAdminLogin = async function (next) {
+  let token;
+  if (Store.state.currentUser) {
+    return next();
+  } else {
+    token = localStorage.getItem("token")
+  }
+
+  if(!token) {
+    next("/auth")
+  } else {
+    let auth = new Auth();
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+}
 
 export default router
