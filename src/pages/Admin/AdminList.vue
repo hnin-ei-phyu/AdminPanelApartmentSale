@@ -207,7 +207,7 @@ export default {
                 this.loading = true;
                 let admin = new Admin();
                 try {
-                    var result = await admin.getTotalCount(this.token);
+                    var result = await admin.getTotalCount();
                     console.log("RAW Data");
                     console.log(result.data);
                     this.totalCount =result.data.data;
@@ -230,7 +230,7 @@ export default {
                         skip : skip ,
                         limit : limit 
                     }
-                     result = await admin.getWithRange(range,this.token)
+                     result = await admin.getWithRange(range)
                      this.admins = result.data.data;
                      this.loading = false;
                 } catch (error) {
@@ -246,7 +246,7 @@ export default {
                   this.readDataWithLimit(1,this.itemsPerPage)
                 }else{
                     try {
-                        let result = await admin.search(this.search,this.token)
+                        let result = await admin.search(this.search)
                         console.log(result.data)
                         this.admins = result.data
                         this.totalCount = result.data.length ;
@@ -261,7 +261,7 @@ export default {
                 this.dialog = false;
                 let admin = new Admin(this.toDelete)
                 try {
-                    await admin.deleteAdmin(this.token)
+                    await admin.deleteAdmin()
                 } catch (error) {
 
                     console.log("Error : ",error)

@@ -113,7 +113,7 @@ export default {
       };
 
       try {
-        await admin.updateInfo(updateData,this.token);
+        await admin.updateInfo(updateData);
         this.success = true;
         this.loading = false;
         this.$router.push("/admins")
@@ -132,7 +132,7 @@ export default {
     let data;
     try {
       let admin = new Admin(this.$route.params.id);
-      let result = await admin.getInfo(this.token);
+      let result = await admin.getInfo();
       data = result.data;
       this.loading = false;
     } catch (error) {

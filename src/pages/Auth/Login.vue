@@ -87,25 +87,21 @@ export default {
  },
 
  methods: {
-       login : async function() {
-
-        
+       login : async function() { 
         try {
           this.loading = true;
           let adminObj = {
             email : this.email,
             password : this.password
-          }
-
-          
+          }        
           let admin = new Admin()
-          let adminData = await admin.loginAdmin(adminObj,this.token)
-          
+          let adminData = await admin.loginAdmin(adminObj)
+          console.log(adminObj)
           this.error = false 
           this.success = true
-          console.log(adminData)
-          this.saveCurrentAuth(adminData.data)
+          // this.saveCurrentAuth(adminData.data)      
           this.$router.push("/main");
+          console.log(adminData)
 
         } catch (error) {
           this.error = true 
@@ -119,18 +115,19 @@ export default {
         }
        },
        
-       saveCurrentAuth : function(user) {
-        //save auth token to localstorage 
-        localStorage.setItem("token",user.token)
+      //  saveCurrentAuth : async function(user) {
+      //   //save auth token to localstorage 
+      //   console.log("I want to go home!")
+      //   localStorage.setItem("token",user.token)
 
-        //save the current auth to global store
-        this.$store.commit ("setCurrent",user)
+      //   //save the current auth to global store
+      //   this.$store.commit ("setCurrent",user)
 
-        //continue to next page 
-        setTimeout(()=>{
-          this.$router.push("/main")
-        },1000)
-       }
+      //   //continue to next page 
+      //   setTimeout(()=>{
+      //     this.$router.push("/main")
+      //   },1000)
+      //  }
  },
  computed : {
   currentUser : function() {

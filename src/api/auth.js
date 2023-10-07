@@ -45,4 +45,4 @@ class Auth {
   }
 }
 
-export { Auth };
+export default Auth;

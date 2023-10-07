@@ -118,7 +118,7 @@
           }
 
           try {
-            await admin.registerAdmin(adminData,this.token)
+            await admin.registerAdmin(adminData)
             this.$router.push("/admins")
           } catch (error) {
             console.log("Error : ", error)
